@@ -7,13 +7,12 @@ def load_data(messages_filepath, categories_filepath):
     messages = pd.read_csv(messages_filepath)
     categories = pd.read_csv(categories_filepath)
 
-    return messages, categories
-
-
-def clean_data(messages, categories):
     # merge datasets
     df = pd.merge(messages, categories, on='id')
+    return df
 
+
+def clean_data(df):
     # split categories into separate category columns
     categories = df['categories'].str.split(';', expand=True)
     categories.index = df.id
