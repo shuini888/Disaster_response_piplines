@@ -3,25 +3,14 @@
 ### Project introduction
 Analyze disaster data from Figure Eight to build a model for an API that classifies disaster messages.
 
-### Structure of the project
-- app
-| - template
-| |- master.html  # main page of web app
-| |- go.html  # classification result page of web app
-|- run.py  # Flask file that runs app
+### Project components
+1. ETL Pipeline
+process_data.py---- a data cleaning pipeline
 
-- data
-|- disaster_categories.csv  # data to process
-|- disaster_messages.csv  # data to process
-|- process_data.py
-|- InsertDatabaseName.db  # database to save clean data to
+2.ML Pipeline
+train_classifier.py---- a machine learning pipeline
 
-- models
-|- train_classifier.py
-|- classifier.pkl  # saved model
-
-- README.md
-
+3. Flask Web App
 
 ### Instructions:
 1. Run the following commands in the project's root directory to set up your database and model.
