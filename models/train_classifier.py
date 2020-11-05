@@ -11,7 +11,7 @@ from nltk.corpus import stopwords
 from nltk.stem.wordnet import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
 from sklearn.pipeline import Pipeline
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split,GridSearchCV
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.ensemble import RandomForestClassifier
@@ -22,7 +22,7 @@ import pickle
 
 def load_data(database_filepath):
     engine = create_engine('sqlite:///'+database_filepath)
-    df = pd.read_sql_table('InsertTableName', engine)
+    df = pd.read_sql_table('DisasterResponse', engine)
     X = df.message
     Y = df.iloc[:, 4:]
     category_names = df.columns.tolist()[4:]
@@ -58,11 +58,11 @@ def build_model():
 
 
 
-def evaluate_model(model, X_test, Y_test):
+def evaluate_model(model, X_test, Y_test,category_names):
     Y_hat = model.predict(X_test)
     f1_scores = []
     for index, col in enumerate(Y_test.columns):
-        print(classification_report(Y_test.iloc[:, index], [row[index] for row in Y_hat]))
+        print(classification_report(Y_test.iloc[:, index], [row[index] for row in Y_hat], target_names=category_names))
         score = f1_score(Y_test.iloc[:, index], [row[index] for row in Y_hat], average='weighted')
         f1_scores.append(score)
         avg_f1_score = np.mean(f1_scores)
