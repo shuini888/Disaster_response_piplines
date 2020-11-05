@@ -27,11 +27,11 @@ def tokenize(text):
 
 
 # load data
-engine = create_engine('sqlite:///../data/YourDatabaseName.db')
-df = pd.read_sql_table('YourTableName', engine)
+engine = create_engine('sqlite:///../data/DisasterResponse.db')
+df = pd.read_sql_table('DisasterResponse', engine)
 
 # load model
-model = joblib.load("../models/your_model_name.pkl")
+model = joblib.load("../models/classifier.pkl")
 
 
 # index webpage displays cool visuals and receives user input text for model
@@ -39,12 +39,15 @@ model = joblib.load("../models/your_model_name.pkl")
 @app.route('/index')
 def index():
     # extract data needed for visuals
-    # TODO: Below is an example - modify to extract data for your own visuals
+    # Fig1: genre
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
 
+    # Fig2: categories
+    categories_proportion = df[df.columns[4:]].sum() / len(df)
+    categories_names = list(categories_proportion.index)
+
     # create visuals
-    # TODO: Below is an example - modify to create your own visuals
     graphs = [
         {
             'data': [
@@ -61,6 +64,27 @@ def index():
                 },
                 'xaxis': {
                     'title': "Genre"
+                }
+            }
+        },
+        {
+            'data': [
+                Bar(
+                    x=categories_names,
+                    y=categories_proportion
+                )
+            ],
+
+            'layout': {
+                'title': 'Proportion of Category',
+                'yaxis': {
+                    'title': "Category Proportion",
+                    'automargin': True
+                },
+                'xaxis': {
+                    'title': "Category",
+                    'tickangle': -40,
+                    'automargin': True
                 }
             }
         }
