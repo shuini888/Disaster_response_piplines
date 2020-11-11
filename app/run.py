@@ -76,14 +76,14 @@ def index():
             ],
 
             'layout': {
-                'title': 'Proportion of Category',
+                'title': 'Proportion of Categories',
                 'yaxis': {
                     'title': "Category Proportion",
                     'automargin': True
                 },
                 'xaxis': {
                     'title': "Category",
-                    'tickangle': -40,
+                    'tickangle': -45,
                     'automargin': True
                 }
             }

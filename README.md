@@ -7,7 +7,7 @@ Analyze disaster data from Figure Eight to build a model for an API that classif
 1. ETL Pipeline
 process_data.py---- a data cleaning pipeline
 
-2.ML Pipeline
+2. ML Pipeline
 train_classifier.py---- a machine learning pipeline
 
 3. Flask Web App
